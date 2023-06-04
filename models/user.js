@@ -21,7 +21,7 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true,
-    maxLength: 100,
+    minLength: 8,
   },
   isMember: {
     type: Boolean,
