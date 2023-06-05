@@ -6,6 +6,10 @@
   </head>
   <body>
     <h1><%= title %></h1>
+    <% if(user) { %>
+      <h2>Welcome back <%=user.username %></h2>
+      <a href="/log-out">log out</a>
+    <% } %>
     <p>Welcome to <%= title %></p>
     <a href="/sign-up">sign up</a>
     <a href="/log-in">log in</a>

@@ -1,16 +1,32 @@
 const createError = require('http-errors');
 const express = require('express');
+const session = require('express-session');
+const passport = require('passport');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
+const mongoose = require('mongoose');
+
+require('dotenv').config();
 
 const homeRouter = require('./routes/home');
 const signUpRouter = require('./routes/signUpForm');
 const usersRouter = require('./routes/users');
+// const clubRouter = require('./routes/club');
+const logInRouter = require('./routes/logIn');
+const logOutRouter = require('./routes/logOut');
 
 const app = express();
+
+const db = process.env.MONGO_URL;
+const secret = process.env.SECRET_WORD;
+mongoose.set('strictQuery', false);
+async function main() {
+  await mongoose.connect(db);
+}
+main().catch((err) => console.log(err));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -48,6 +64,11 @@ const specs = swaggerJsdoc(options);
 
 app.use(logger('dev'));
 app.use(express.json());
+
+app.use(session({ secret, resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -55,12 +76,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', homeRouter);
 app.use('/sign-up', signUpRouter);
 app.use('/users', usersRouter);
+app.use('/log-in', logInRouter);
+app.use('/log-out', logOutRouter);
+// app.use('/club-wall', clubRouter);
 
 app.use(
   '/api-docs',
   swaggerUi.serve,
   swaggerUi.setup(specs, { explorer: true }),
 );
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));

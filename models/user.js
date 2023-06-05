@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
-  firstname: {
+  firstName: {
     type: String,
     required: true,
     maxLength: 50,
@@ -31,4 +31,4 @@ const UserSchema = new Schema({
   },
 });
 
-module.exports = mongoose.models.User || mongoose.model('Album', UserSchema);
+module.exports = mongoose.models.User || mongoose.model('User', UserSchema);

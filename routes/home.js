@@ -7,6 +7,6 @@ const homeController = require('../controllers/homeController');
 /* GET home page. */
 router.get('/', homeController.getHome);
 
-router.get('/sign-up', homeController.signUpForm);
+// router.get('/sign-up', homeController.signUpForm);
 
 module.exports = router;
