@@ -1,5 +1,6 @@
 const { body, validationResult } = require('express-validator');
 const path = require('path');
+const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
 const signUpForm = (req, res) => {
@@ -51,9 +52,8 @@ const formValidation = [
 ];
 
 const createUser = async (req, res, next) => {
-  // eslint-disable-next-line no-console
   const errors = validationResult(req);
-  console.log(errors);
+
   if (!errors.isEmpty()) {
     try {
       return res.render(path.join(__dirname, '..', 'views', 'sign-up-form.ejs'), {
@@ -64,19 +64,21 @@ const createUser = async (req, res, next) => {
       return next(err);
     }
   }
-  try {
-    const user = new User({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      username: req.body.username,
-      password: req.body.password,
-    });
 
-    await user.save();
-    return res.redirect('/');
-  } catch (err) {
-    return next(err);
-  }
+  bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
+    try {
+      const user = await new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        username: req.body.username,
+        password: hashedPassword,
+      });
+      return await user.save();
+    } catch {
+      return next(err);
+    }
+  });
+  return res.redirect('/');
 };
 
 module.exports = {

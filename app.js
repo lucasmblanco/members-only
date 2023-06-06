@@ -64,7 +64,10 @@ const specs = swaggerJsdoc(options);
 
 app.use(logger('dev'));
 app.use(express.json());
-
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
 app.use(session({ secret, resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
