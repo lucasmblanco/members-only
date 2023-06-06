@@ -1,15 +1,7 @@
-// const path = require('path');
-const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const bcrypt = require('bcryptjs');
-const User = require('../models/user');
-
-const logInForm = (req, res) => {
-  res.render('log-in-form', {
-    title: 'Log in form',
-    errors: false,
-  });
-};
+const passport = require('passport');
+const User = require('../../models/user');
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
@@ -47,12 +39,11 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-const authentication = passport.authenticate('local', {
+const authUser = passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/',
 });
 
 module.exports = {
-  logInForm,
-  authentication,
+  authUser,
 };

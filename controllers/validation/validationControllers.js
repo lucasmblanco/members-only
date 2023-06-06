@@ -1,14 +1,4 @@
-const { body, validationResult } = require('express-validator');
-const path = require('path');
-const bcrypt = require('bcryptjs');
-const User = require('../models/user');
-
-const signUpForm = (req, res) => {
-  res.render('sign-up-form', {
-    title: 'Sign up form',
-    errors: false,
-  });
-};
+const { body } = require('express-validator');
 
 const formValidation = [
   body('firstName')
@@ -51,38 +41,24 @@ const formValidation = [
     }),
 ];
 
-const createUser = async (req, res, next) => {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    try {
-      return res.render(path.join(__dirname, '..', 'views', 'sign-up-form.ejs'), {
-        title: 'Sign up',
-        errors: errors.array(),
-      });
-    } catch (err) {
-      return next(err);
-    }
-  }
-
-  bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
-    try {
-      const user = await new User({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        username: req.body.username,
-        password: hashedPassword,
-      });
-      return await user.save();
-    } catch {
-      return next(err);
-    }
-  });
-  return res.redirect('/');
-};
+const messageValidtation = [
+  body('title')
+    .not()
+    .isEmpty()
+    .withMessage('The title must not be empty')
+    .trim()
+    .escape()
+    .withMessage('Title must be specific'),
+  body('body')
+    .not()
+    .isEmpty()
+    .withMessage('The title must not be empty')
+    .trim()
+    .escape()
+    .withMessage('Title must be specific'),
+];
 
 module.exports = {
-  signUpForm,
   formValidation,
-  createUser,
+  messageValidtation,
 };

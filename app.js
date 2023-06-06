@@ -11,12 +11,14 @@ const mongoose = require('mongoose');
 
 require('dotenv').config();
 
-const homeRouter = require('./routes/home');
-const signUpRouter = require('./routes/signUpForm');
-const usersRouter = require('./routes/users');
+const mainRouter = require('./routes/mainRoute');
+const registerRouter = require('./routes/registerRoute');
+// const signUpRouter = require('./routes/signUpForm');
+// const usersRouter = require('./routes/users');
 // const clubRouter = require('./routes/club');
-const logInRouter = require('./routes/logIn');
-const logOutRouter = require('./routes/logOut');
+// const logInRouter = require('./routes/logIn');
+// const logOutRouter = require('./routes/logOut');
+// const accessRouter = require('./routes/access');
 
 const app = express();
 
@@ -76,11 +78,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', homeRouter);
+app.use('/', mainRouter);
+app.use('/register', registerRouter);
+/*
 app.use('/sign-up', signUpRouter);
 app.use('/users', usersRouter);
 app.use('/log-in', logInRouter);
 app.use('/log-out', logOutRouter);
+app.use('/total-access', accessRouter);
+*/
 // app.use('/club-wall', clubRouter);
 
 app.use(

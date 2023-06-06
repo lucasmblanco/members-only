@@ -1,17 +1,48 @@
 // const path = require('path');
-const { body, validationResult } = require('express-validator');
-const path = require('path');
+// const { body, validationResult } = require('express-validator');
+// const path = require('path');
 const Message = require('../models/message');
 
-const getHome = (req, res) => {
-  res.render('home', {
-    title: 'The Club',
-    user: req.user,
-    messages: false,
-    errors: false,
-  });
+const getMainView = async (req, res, next) => {
+  try {
+    let messages;
+    if (req.user) {
+      messages = await Message.find()
+        .populate('user')
+        .exec();
+    }
+    return res.render('main_view', {
+      title: 'The Club',
+      user: req.user || false,
+      messages: messages || false,
+      errors: false,
+    });
+  } catch (err) {
+    return next(err);
+  }
 };
+/*
+const getMainView = async (req, res, next) => {
+  try {
+    let messages;
+    if (req.user) {
+      messages = await Message.find()
+        .populate('user')
+        .exec();
+    }
+    return res.render('mainView', {
+      title: 'The Club',
+      user: req.user || false,
+      messages: messages || false,
+      errors: false,
+    });
+  } catch (err) {
 
+  }
+};
+*/
+
+/*
 const messageValidtation = [
   body('title')
     .not()
@@ -30,8 +61,6 @@ const messageValidtation = [
 ];
 
 const createMessage = async (req, res, next) => {
-  console.log('--------------- aca --------');
-  console.log(req.body.user);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     try {
@@ -58,9 +87,9 @@ const createMessage = async (req, res, next) => {
     return next(err);
   }
 };
-
+*/
 module.exports = {
-  getHome,
-  messageValidtation,
-  createMessage,
+  getMainView,
+  // messageValidtation,
+  // createMessage,
 };

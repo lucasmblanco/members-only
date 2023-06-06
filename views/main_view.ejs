@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <%- include('../views/partials/header.ejs') %>
+    <% if(user){ %>
+      <%- include('../views/partials/user_panel.ejs') %>
+      <%- include('../views/partials/messages.ejs') %>
+    <% } %>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+<% if(messages){ %>
+    <section>
+      <% for(message of messages) {%>
+        <div>
+          <h4><%= message.title %></h4>
+          <p><%= message.body%></p>
+          <% if(user.isMember){ %>
+            <p><%= message.timestamp.getHours() + ":" + message.timestamp.getMinutes() + ":" + message.timestamp.getSeconds()%></p>
+            <p><%= message.timestamp.getDay() + "-" + message.timestamp.getMonth() + "-" + message.timestamp.getYear()%></p>
+            <p><%= message.user.firstName%></p>
+          <% } %>  
+        </div>
+     <% } %>
+    </section>
+ <% } %>       

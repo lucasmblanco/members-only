@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
+    <title>Document</title>
 </head>
 <body>
-    <h1>Sign up</h1>
-    <form action="" method="POST">
+    <form action="/register/log-in" method="POST">
+        <label for="username">Username: </label>
+        <input type="email" id="username" name="username">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <button type="sbmit">Log in</button>
+    </form>
+    <form action="/register/sign-up" method="POST">
         <label for="firstName" >First Name:</label>
         <input type="text" id="firstName" name="firstName" value=''>
         <label for="lastName" >Last Name:</label>
@@ -20,15 +26,13 @@
         <label for="confirmPassword">Confirm password:</label>
         <input type="password" id="confirmPassword" name="confirmPassword" value=''>
         <button type="Submit">Create an user</button>
+        <% if(errors.length > 0) { %>
+            <ul>
+                <% errors.forEach(error => { %> 
+                    <li class="error-message"><%= error.msg%></li>
+                <% }) %>
+            </ul>
+        <% } %>
     </form>
-    <div>
-    <% if(errors.length > 0) { %>
-        <ul>
-            <% errors.forEach(error => { %> 
-                <li class="error-message"><%= error.msg%></li>
-            <% }) %>
-        </ul>
-    <% } %>
-</div>
 </body>
 </html>
