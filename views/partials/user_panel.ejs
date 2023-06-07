@@ -1,32 +1,41 @@
-<h2>Welcome back <%=user.username %></h2>
+<h2 class="welcome-h2">Welcome back, 
+    <span><%=user.firstName %> <%- include('../../public/images/heart.svg') %></span> 
+</h2>
+
 <% if(!user.isAdmin && !user.isMember) { %>
     <button>Want to become a member?</button>
 <% } else if(!user.isAdmin) { %>
+    <p class="status">member</p>
     <button>Want to become an admin?</button>
-    <p>member</p>
 <% } else { %> 
-    <p>member</p>
-    <p>admin</p>
+    <div class="status-container">
+        <p class="status">member</p>
+    <p class="status">admin</p> 
+    </div>
 <% } %>
+
+
+
 <div class="secret-panel" style="display: none">
    <% if(!user.isMember){ %>
     <form action='/member-access' method="POST">
-        <label for="membership">Do you want to become a member? Insert secret code: </label>
-        <input type="text" id="membership" name="membership">
-        <button type="submit">Become a member</button>
+        <label for="membership">Insert secret code: </label>
+        <input type="text" id="membership" name="membership" autocomplete="off">
+        <button type="submit">ok</button>
     </form>
    <% } %>
-   <% if(!user.isAdmin){ %>
+   <% if(user.isMember && !user.isAdmin){ %>
     <form action='/admin-access' method="POST">
-        <label for="admin">Are you an admin? Insert secret code: </label>
-        <input type="text" id="admin" name="admin">
-        <button type="submit">Become an admin</button>
+        <label for="admin">Insert secret code: </label>
+        <input type="text" id="admin" name="admin" autocomplete="off">
+        <button type="submit">ok</button>
     </form>
 <%} %>
 </div>
+<a href="/log-out">log out</a>
 <div>
     <% if(user.isMember) { %>
-        <h3>Create your own message</h3>
+        <h3>Want to say somenthing?</h3>
         <form action="" method="POST">
           <label for="title">Title</label>
           <input type="text" name="title" id="title">
@@ -35,12 +44,12 @@
           <label for="user">by: </label>
           <span><%= user.firstName %></span>
           <input type="text" name="user" id="user" value="<%= user._id %>" hidden>
-          <button type="submit">create message</button>
+          <button type="submit">share it!</button>
           <a href="/delete-message"></a>
         </form>
         <% } %>
 </div>
-<a href="/log-out">log out</a>
+
 <script>
     const memberButton = document.querySelector('button'); 
     const secretPanel = document.querySelector('div.secret-panel')
@@ -53,4 +62,6 @@
             secretPanel.style.display = 'none';
         }
     }; 
+
+    document.querySelector('body').style.justifyContent = 'flex-start';
 </script>

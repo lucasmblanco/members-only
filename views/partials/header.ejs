@@ -1,9 +1,12 @@
-<header>
-    <h1>
-        <h1>Welcome to <%= title %></h1>
-    </h1>
-    <% if(!user){ %>
-        <a href="/register">ENTER SITE</a>
-    <% } %>
-    
-</header>
+<section class="hero-section">
+    <header>
+        <h1>
+            <span>Welcome</span> 
+            <span> to </span> 
+            <span><%= title.toUpperCase() %></span>
+        </h1>
+    </header>
+    <section class="register-section">
+        <a href="/register">WANNA JOIN?</a>
+    </section>
+</section>

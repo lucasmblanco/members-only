@@ -2,9 +2,9 @@ const express = require('express');
 
 const router = express.Router();
 
+const User = require('../models/user');
 const mainController = require('../controllers/mainController');
 const registerController = require('../controllers/registerControllers');
-const User = require('../models/user');
 const validationController = require('../controllers/validation/validationControllers');
 const messageController = require('../controllers/messageController');
 

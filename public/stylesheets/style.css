@@ -1,8 +1,301 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+:root{
+  --primary-accent: #f46d59; 
+  --secondary-accent: #2e2428;
+  --tenor-font: 'Tenor Sans', sans-serif; 
+  --glorify-font: 'Glorify', sans-serif;
+  --step--3: clamp(1.45rem, calc(1.06rem + 1.94vw), 2.56rem);
+  --step--2: clamp(1.74rem, calc(1.23rem + 2.55vw), 3.20rem);
+  --step--1: clamp(2.08rem, calc(1.42rem + 3.33vw), 4.00rem);
+  --step-0: clamp(2.50rem, calc(1.63rem + 4.35vw), 5.00rem);
+  --step-1: clamp(3.00rem, calc(1.87rem + 5.65vw), 6.25rem);
+  --step-2: clamp(3.60rem, calc(2.13rem + 7.33vw), 7.81rem);
+  --step-3: clamp(4.32rem, calc(2.43rem + 9.47vw), 9.77rem);
 }
 
-a {
-  color: #00B7FF;
+@font-face {
+  font-family: 'Tenor Sans';
+  src: url('../fonts/tenorsans-regular-webfont.woff2'),
+  url('../fonts/tenorsans-regular-webfont.woff')
 }
+
+@font-face {
+  font-family: 'Glorify';
+  src: url('../fonts/glorifydemo-bw3j3-webfont.woff2'),
+  url('../fonts/glorifydemo-bw3j3-webfont.woff')
+}
+
+
+body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-accent);
+  color: var(--secondary-accent); 
+  font-family: var(--tenor-font);
+}
+
+
+section.hero-section{
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  width: 100%;
+  padding: 2rem; 
+  gap: 2rem;
+}
+
+h1{
+  display: flex;
+  flex-direction: column;
+  font-size: var(--step-1);
+  font-family: var(--tenor-font);
+  height: 100%;
+  justify-content: space-around;
+}
+
+h1 span:nth-child(3){
+  font-family: var(--glorify-font);
+}
+
+section.register-section {
+  width: fit-content;
+  justify-self: end;
+  align-self: center;
+  font-size: var(--step--3);
+  writing-mode: sideways-lr;
+  background-color: var(--secondary-accent);
+}
+
+
+
+section.register-section a {
+  color: var(--primary-accent);
+  text-decoration: none;
+  padding-inline: 1rem;
+}
+
+section.register-section:hover{
+  outline: 10px solid var(--secondary-accent); 
+  outline-offset: .5rem;
+}
+
+section.form-section{
+  width: 100%;
+  padding-inline: 2rem;
+}
+
+section.form-section > form{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+section.form-section > form div {
+  display: flex;
+  justify-content: space-around;
+  align-items: end;
+}
+
+section.form-section > form div label{
+  width: 100%;
+}
+
+section.form-section > form div input{
+  background-color: var(--primary-accent);
+  border: none;
+  box-shadow: inset 0 -2px 0px 0px var(--secondary-accent);
+  
+}
+
+section.form-section > form div input:focus{
+  outline: none;
+}
+
+section.form-section > form button {
+  width: fit-content;
+  padding-inline: .5rem;
+  background-color: var(--secondary-accent);
+  color: var(--primary-accent);
+  border: none;
+  align-self: center;
+}
+
+div.svg-container{
+  display: grid;
+  place-content: center;
+  padding-block: 2rem;
+}
+
+h2{
+  font-family: var(--glorify-font);
+  text-align: center;
+}
+
+h2.welcome-h2{
+  font-family: var(--tenor-font);
+}
+
+h2 span{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--glorify-font);
+}
+
+p.status{
+  background-color: var(--secondary-accent);
+  color:var(--primary-accent); 
+  padding-inline: .3rem;
+  width: fit-content;
+
+}
+
+button{
+  font-family: var(--glorify-font);
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+  padding-inline: .3rem;
+}
+
+button:hover{
+  background-color: var(--secondary-accent);
+  color: var(--primary-accent);
+}
+
+div.secret-panel form input{
+  padding-inline: .3rem;
+  font-family: var(--glorify-font);
+  background-color: var(--secondary-accent);
+  color: var(--primary-accent);
+  border: none;
+}
+
+div.secret-panel form input:focus{
+  outline: none;
+}
+
+div.status-container{
+  display: flex;
+  gap: .5rem;
+}
+
+a{
+  text-decoration: none;
+  color: var(--secondary-accent); 
+}
+/* ESTABA RE BIEN LPM 
+
+body{
+  display: grid;
+  place-items: center;
+ display: grid;
+  place-items: center;
+  font-family: var(--tenor-font);
+}
+
+
+section.hero-section{
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  width: 100%;
+  height: fit-content;
+  padding: 2rem; 
+  gap: 2rem;
+  }
+
+header{
+  display: flex;
+  align-items: center;
+}
+
+h1{
+  display: flex;
+  flex-direction: column;
+  font-size: var(--step-3);
+  font-family: var(--tenor-font);
+  
+}
+
+h1 span:nth-child(3){
+  font-family: var(--glorify-font);
+}
+
+section.register-section {
+  width: fit-content;
+  justify-self: end;
+  align-self: center;
+  font-size: var(--step-0);
+  writing-mode: sideways-lr;
+  background-color: var(--secondary-accent);
+}
+
+section.register-section a {
+  color: var(--primary-accent);
+  text-decoration: none;
+  padding-inline: 2rem;
+}
+
+section.register-section:hover{
+  outline: 10px solid var(--secondary-accent); 
+  outline-offset: .5rem;
+}
+
+*/
+
+/* BACKUP MA O ME 
+body{
+  background-color: var(--primary-accent);
+  color: var(--secondary-accent);
+  font-family: var(--tenor-font);
+}
+
+
+header{
+  display: flex;
+  align-items: center;
+  padding-inline-start: 6.4rem;
+}
+
+header span{
+  display: block;
+}
+
+section.hero-section{
+display: grid;
+grid-template-columns: 1fr 0.5fr;
+justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+h1{
+  display: flex;
+  flex-direction: column;
+  font-size: var(--step-3);
+  font-family: var(--tenor-font);
+  
+}
+
+h1 span:nth-child(3){
+  font-family: var(--glorify-font);
+}
+
+section.register-section {
+  font-size: var(--step-0);
+  writing-mode: sideways-lr;
+  width: fit-content;
+  justify-self: end;
+  align-self: center;
+  background-color: var(--secondary-accent);
+
+}
+
+section.register-section a {
+  color: var(--primary-accent);
+  text-decoration: none;
+  padding-inline: 2rem;
+}
+*/

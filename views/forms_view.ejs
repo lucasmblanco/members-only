@@ -4,35 +4,58 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='/stylesheets/reset.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
     <title>Document</title>
 </head>
 <body>
-    <form action="/register/log-in" method="POST">
-        <label for="username">Username: </label>
-        <input type="email" id="username" name="username">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password">
-        <button type="sbmit">Log in</button>
-    </form>
-    <form action="/register/sign-up" method="POST">
-        <label for="firstName" >First Name:</label>
-        <input type="text" id="firstName" name="firstName" value=''>
-        <label for="lastName" >Last Name:</label>
-        <input type="text" id="lastName" name="lastName" value=''>
-        <label for="username">Username:</label>
-        <input type="email" id="username" name="username" value=''>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" value=''>
-        <label for="confirmPassword">Confirm password:</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" value=''>
-        <button type="Submit">Create an user</button>
-        <% if(errors.length > 0) { %>
-            <ul>
-                <% errors.forEach(error => { %> 
-                    <li class="error-message"><%= error.msg%></li>
-                <% }) %>
-            </ul>
-        <% } %>
-    </form>
+    <section class="form-section">
+        <h2>WELCOME BACK!</h2>
+        <form action="/register/log-in" method="POST">
+            <div>
+                <label for="username">username: </label>
+            <input type="email" id="username" name="username">
+            </div>
+            <div>
+                <label for="password">password:</label>
+                <input type="password" id="password" name="password">
+            </div>
+            <button type="sbmit">LOG IN</button>
+        </form>
+        <div class="svg-container">
+            <%- include ("../public/images/diamond.svg") %>
+        </div>
+        <h2>FIRST TIME?</h2>
+        <form action="/register/sign-up" method="POST">
+            <div>
+                <label for="firstName" >first Name:</label>
+            <input type="text" id="firstName" name="firstName" value=''>
+            </div>
+            <div>
+                <label for="lastName" >last Name:</label>
+            <input type="text" id="lastName" name="lastName" value=''>
+            </div>
+            <div>
+                <label for="username">username:</label>
+            <input type="email" id="username" name="username" value=''>
+            </div>
+            <div>
+                <label for="password">password:</label>
+            <input type="password" id="password" name="password" value=''>
+            </div>
+            <div>
+                <label for="confirmPassword">confirm password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" value=''>
+            </div>
+            <button type="Submit">SIGN UP</button>
+            <% if(errors.length > 0) { %>
+                <ul>
+                    <% errors.forEach(error => { %> 
+                        <li class="error-message"><%= error.msg%></li>
+                    <% }) %>
+                </ul>
+            <% } %>
+        </form>
+    </section>
 </body>
 </html>
