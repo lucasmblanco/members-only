@@ -9,6 +9,7 @@ const getMainView = async (req, res, next) => {
     if (req.user) {
       messages = await Message.find()
         .populate('user')
+        .sort({ timestamp: -1 })
         .exec();
     }
     return res.render('main_view', {

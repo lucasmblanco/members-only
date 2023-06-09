@@ -1,5 +1,6 @@
 :root{
   --primary-accent: #f46d59; 
+  --primary-accent-darker: #e7705e; 
   --secondary-accent: #2e2428;
   --tenor-font: 'Tenor Sans', sans-serif; 
   --glorify-font: 'Glorify', sans-serif;
@@ -33,6 +34,7 @@ body{
   background-color: var(--primary-accent);
   color: var(--secondary-accent); 
   font-family: var(--tenor-font);
+  gap: 1rem;
 }
 
 
@@ -44,6 +46,8 @@ section.hero-section{
   padding: 2rem; 
   gap: 2rem;
 }
+
+
 
 h1{
   display: flex;
@@ -67,7 +71,16 @@ section.register-section {
   background-color: var(--secondary-accent);
 }
 
+@supports not (-moz-appearance: none) {
+  section.hero-section{
+    grid-auto-flow: row;
+  }
 
+  section.register-section{
+    width: 100%;
+    text-align: center;
+  }
+}
 
 section.register-section a {
   color: var(--primary-accent);
@@ -80,7 +93,14 @@ section.register-section:hover{
   outline-offset: .5rem;
 }
 
+section.register-section:active{
+  outline: 10px solid var(--secondary-accent); 
+  outline-offset: .5rem;
+}
+
 section.form-section{
+  display: grid;
+  place-content: center;
   width: 100%;
   padding-inline: 2rem;
 }
@@ -121,6 +141,11 @@ section.form-section > form button {
   align-self: center;
 }
 
+section.form-section > form button:hover{
+  outline: 3px solid var(--secondary-accent);
+  outline-offset: 2px;
+}
+
 div.svg-container{
   display: grid;
   place-content: center;
@@ -128,6 +153,7 @@ div.svg-container{
 }
 
 h2{
+  padding-block: 1rem;
   font-family: var(--glorify-font);
   text-align: center;
 }
@@ -140,7 +166,9 @@ h2 span{
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: .5rem;
   font-family: var(--glorify-font);
+  
 }
 
 p.status{
@@ -159,9 +187,22 @@ button{
   padding-inline: .3rem;
 }
 
+button.share-button{
+  text-decoration: none;
+  background-color: var(--primary-accent-darker);
+  border-radius: 0 0 10px 10px;
+  padding-inline: .3rem;
+}
+
 button:hover{
   background-color: var(--secondary-accent);
   color: var(--primary-accent);
+}
+
+div.secret-panel form{
+  display: grid;
+  place-content: center;
+  text-align: center;
 }
 
 div.secret-panel form input{
@@ -179,123 +220,215 @@ div.secret-panel form input:focus{
 div.status-container{
   display: flex;
   gap: .5rem;
+  background-color: var(--primary-accent-darker);
+  border-radius: 10px;
+  padding: .5rem;
 }
 
 a{
   text-decoration: none;
   color: var(--secondary-accent); 
 }
-/* ESTABA RE BIEN LPM 
 
-body{
-  display: grid;
-  place-items: center;
- display: grid;
-  place-items: center;
-  font-family: var(--tenor-font);
+div.field-container{
+  display: flex;
+  padding: 1rem;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  background-color: var(--primary-accent-darker);
+  justify-content: space-evenly;
+  border-radius: 10px;
+}
+
+div.field-container:nth-child(3){
+  flex-direction: column;
+}
+
+div.field-container:nth-child(4){
+  justify-content: right;
+  gap: .3rem;
+}
+
+div.field-container:nth-child(4) span{
+  font-weight: bold;
+}
+
+form.create-message-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form.create-message-form input{
+  background-color: transparent;
+  border: none;
+  box-shadow: inset 0 -2px 0px 0px var(--secondary-accent);
+}
+
+form.create-message-form input:focus{
+  outline: none;
+}
+
+form.create-message-form textarea{
+  background-color: transparent;
+  border: none;
+  box-shadow: inset 0 -2px 0px 0px var(--secondary-accent);
+  resize: none;
+}
+
+form.create-message-form textarea:focus{
+  outline: none;
 }
 
 
-section.hero-section{
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: center;
-  width: 100%;
-  height: fit-content;
-  padding: 2rem; 
-  gap: 2rem;
+div.message-container{
+  display: flex;
+  max-width: 15rem;
+  overflow-x: scroll;
+  scrollbar-color: var(--secondary-accent) var(--primary-accent-darker);
+  scrollbar-width: thin;
+  scroll-behavior: smooth;
+
+}
+
+div.message-container div.messages{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: .5rem;
+  border-radius: 10px;
+  gap: 1rem;
+  min-width: 15rem;
+  text-align: center;
+  line-break: anywhere;
+  height: 17rem;
+  background-color: #2e242838;
+  margin-inline: .5rem;
+}
+
+div.message-container div.messages h4 + p {
+  flex-grow: 1;
+}
+
+div.message-container div.messages div{
+  display: flex;
+  justify-content: space-between;
+  align-self: initial;
+}
+
+div.message-container div.messages form button:hover{
+  background-color: transparent;
+}
+
+@supports (scroll-snap-type: x mandatory){
+  div.message-container{
+    scroll-snap-type: x mandatory;
   }
 
-header{
-  display: flex;
-  align-items: center;
+  div.message-container div.messages{
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
 }
 
-h1{
-  display: flex;
-  flex-direction: column;
-  font-size: var(--step-3);
-  font-family: var(--tenor-font);
-  
+div.message-container::-webkit-scrollbar{
+  background-color: var(--primary-accent-darker);
+  border-radius: 10px;
+  height: .5rem; 
+ 
 }
 
-h1 span:nth-child(3){
-  font-family: var(--glorify-font);
-}
-
-section.register-section {
-  width: fit-content;
-  justify-self: end;
-  align-self: center;
-  font-size: var(--step-0);
-  writing-mode: sideways-lr;
+div.message-container::-webkit-scrollbar-thumb{
   background-color: var(--secondary-accent);
 }
 
-section.register-section a {
-  color: var(--primary-accent);
-  text-decoration: none;
-  padding-inline: 2rem;
-}
-
-section.register-section:hover{
-  outline: 10px solid var(--secondary-accent); 
-  outline-offset: .5rem;
-}
-
-*/
-
-/* BACKUP MA O ME 
-body{
-  background-color: var(--primary-accent);
-  color: var(--secondary-accent);
-  font-family: var(--tenor-font);
-}
 
 
-header{
+div.button-container{
   display: flex;
   align-items: center;
-  padding-inline-start: 6.4rem;
+  justify-content: center;
+  padding-block: 1rem;
 }
 
-header span{
-  display: block;
+div.button-container > button:hover {
+ background-color: transparent;
+ cursor: pointer;
 }
 
-section.hero-section{
-display: grid;
-grid-template-columns: 1fr 0.5fr;
-justify-content: center;
+div.button-container > button:nth-child(1){
+  transform: rotate(180deg);
+  transform-origin: center;
+}
+
+
+section.user-panel{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+section.user-panel button{
+  margin-block-start: .5rem;
+}
+
+section.user-panel a{
+  background-color: var(--primary-accent-darker);
+  border-radius: 0 0 10px 10px;
+  padding-inline: .3rem;
+  border: 1px solid transparent;
+}
+
+section.user-panel a:hover{
+  background-color: red;
+  color: white;
+}
+
+div.section-container{
+  display: grid;
+  place-content: center;
+  padding-block: 1rem;
+  grid-auto-flow: column;
+}
+
+section.form-container{
+  display: grid;
+  place-content: center;
+}
+
+figure.quotes-container{
+  display: grid;
+  place-content: center;
+  padding-block-start: 1rem;
+  padding-block-end: .5rem;
+}
+
+figure.parenthesis-container{
+  display: grid;
+  padding-inline: 1rem;
+}
+
+
+figure.parenthesis-container:nth-child(3){
+  transform: rotate(180deg);
+}
+
+ul.errors-container{
+  display: flex;
+  position: fixed;
+  bottom: 0;
   width: 100%;
-  height: 100%;
+  background-color: black;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  overflow-x: auto;
 }
 
-h1{
-  display: flex;
-  flex-direction: column;
-  font-size: var(--step-3);
-  font-family: var(--tenor-font);
-  
+ul.errors-container li{
+  list-style-type: none;
+  padding-inline: 1rem;
+  white-space: nowrap;
 }
-
-h1 span:nth-child(3){
-  font-family: var(--glorify-font);
-}
-
-section.register-section {
-  font-size: var(--step-0);
-  writing-mode: sideways-lr;
-  width: fit-content;
-  justify-self: end;
-  align-self: center;
-  background-color: var(--secondary-accent);
-
-}
-
-section.register-section a {
-  color: var(--primary-accent);
-  text-decoration: none;
-  padding-inline: 2rem;
-}
-*/

@@ -1,15 +1,65 @@
 <% if(messages){ %>
-    <section>
-      <% for(message of messages) {%>
-        <div>
-          <h4><%= message.title %></h4>
-          <p><%= message.body%></p>
-          <% if(user.isMember){ %>
-            <p><%= message.timestamp.getHours() + ":" + message.timestamp.getMinutes() + ":" + message.timestamp.getSeconds()%></p>
-            <p><%= message.timestamp.getDay() + "-" + message.timestamp.getMonth() + "-" + message.timestamp.getYear()%></p>
-            <p><%= message.user.firstName%></p>
-          <% } %>  
+<div class="section-container">
+<figure class="parenthesis-container">
+  <%- include('../../public/images/parenthesis.svg')%>
+</figure>
+  <section class="messages-section">
+    <figure class="quotes-container">
+      <%- include('../../public/images/quotes.svg')%>
+     </figure>
+   <div class="message-container">
+    <% for(message of messages) {%>
+      <div class="messages">
+        <h4><%= message.title %></h4>
+        <p><%= message.body%></p>
+        <% if(user.isMember){ %>
+        <p><%= message.timestamp.toLocaleString() %></p>
+        <div class="author-section">
+          <% if(user.isAdmin){ %>
+          <form action="/delete-message" method="POST">
+            <input type="text" value="<%= message._id%>" name="id" hidden>
+            <button class="delete-button" type="submit"><%- include('../../public/images/delete.svg')%></button>
+          </form>
+          <% } %>
+          <p>by: <%= user.isMember ? message.user.firstName : "Anonymous" %></p>
         </div>
-     <% } %>
-    </section>
- <% } %>       
+        <% } %>
+      </div>
+      <% } %>
+   </div>
+   <div class="button-container">
+    <button class="backward"><%- include('../../public/images/arrow.svg')%></button>
+    <button class="forward"><%- include('../../public/images/arrow.svg')%></button>
+  </div>
+  </section>
+  <figure class="parenthesis-container">
+    <%- include('../../public/images/parenthesis.svg')%>
+  </figure>
+  
+  
+</div>
+<% } %>
+
+<script>
+  const scrollContainer = document.querySelector('div.message-container');
+  const forwardButton = document.querySelector('button.forward');
+  const backwardButton = document.querySelector('button.backward');
+  const deleteButton = document.querySelector('button.delete-button'); 
+  const authorSection = document.querySelectorAll('div.author-section'); 
+
+  forwardButton.addEventListener("click", (evt) => {
+    evt.preventDefault();
+    scrollContainer.scrollLeft += 240;
+  });
+
+  backwardButton.addEventListener("click", (evt) => {
+    evt.preventDefault();
+    scrollContainer.scrollLeft -= 240;
+  });
+
+  if(!deleteButton){
+    authorSection.forEach(section => {
+      section.style.justifyContent = 'end'; 
+    })
+  }
+</script>

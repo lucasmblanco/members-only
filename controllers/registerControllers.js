@@ -4,8 +4,22 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
 const getForms = (req, res) => {
+  let errors;
+  if (req.query.error) {
+    errors = {
+      errors: [
+        {
+          value: 'invalid_credentials',
+          msg: 'Invalid credentials.',
+          param: 'credentials',
+          location: 'file',
+        },
+      ],
+    };
+  }
+  console.log(errors);
   res.render('forms_view', {
-    errors: false,
+    errors: errors || false,
   });
 };
 
@@ -25,7 +39,7 @@ const createUser = async (req, res, next) => {
     try {
       return res.render(path.join(__dirname, '..', 'views', 'forms_view.ejs'), {
         title: 'Sign up',
-        errors: errors.array(),
+        errors,
       });
     } catch (err) {
       return next(err);

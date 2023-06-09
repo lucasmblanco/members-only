@@ -1,15 +1,20 @@
 const { validationResult } = require('express-validator');
-const { path } = require('path');
+const path = require('path');
 const Message = require('../models/message');
 
 const createMessage = async (req, res, next) => {
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     try {
-      return res.render(path.join(__dirname, '..', 'views', 'home.ejs'), {
+      const messages = await Message.find()
+        .populate('user')
+        .sort({ timestamp: -1 })
+        .exec();
+      return res.render(path.join(__dirname, '..', 'views', 'main_view.ejs'), {
         title: 'The Club',
         user: req.user,
-        messages: false,
+        messages,
         errors: errors.array(),
       });
     } catch (err) {
@@ -30,6 +35,16 @@ const createMessage = async (req, res, next) => {
   }
 };
 
+const deleteMessage = async (req, res, next) => {
+  try {
+    await Message.findByIdAndRemove(req.body.id);
+    return res.redirect('/');
+  } catch (err) {
+    return next(err);
+  }
+};
+
 module.exports = {
   createMessage,
+  deleteMessage,
 };

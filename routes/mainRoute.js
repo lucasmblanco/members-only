@@ -49,4 +49,6 @@ router.post('/admin-access', async (req, res) => {
 
 router.post('/create-message', validationController.messageValidtation, messageController.createMessage);
 
+router.post('/delete-message', messageController.deleteMessage);
+
 module.exports = router;

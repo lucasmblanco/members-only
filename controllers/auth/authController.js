@@ -41,7 +41,7 @@ passport.deserializeUser(async (id, done) => {
 
 const authUser = passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/',
+  failureRedirect: '/register?error=Incorrect%20credentials',
 });
 
 module.exports = {

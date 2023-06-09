@@ -48,14 +48,15 @@
             <input type="password" id="confirmPassword" name="confirmPassword" value=''>
             </div>
             <button type="Submit">SIGN UP</button>
-            <% if(errors.length > 0) { %>
-                <ul>
-                    <% errors.forEach(error => { %> 
-                        <li class="error-message"><%= error.msg%></li>
-                    <% }) %>
-                </ul>
-            <% } %>
+            
         </form>
     </section>
+    <% if(errors) { %>
+        <ul class="errors-container">
+            <% errors.errors.forEach(error => { %> 
+                <li class="error-message"><%= error.msg%></li>
+            <% }) %>
+        </ul>
+    <% } %>
 </body>
 </html>

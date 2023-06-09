@@ -52,10 +52,10 @@ const messageValidtation = [
   body('body')
     .not()
     .isEmpty()
-    .withMessage('The title must not be empty')
+    .withMessage('The body must not be empty')
     .trim()
     .escape()
-    .withMessage('Title must be specific'),
+    .withMessage('Body must be specific'),
 ];
 
 module.exports = {

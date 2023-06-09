@@ -16,5 +16,12 @@
       <%- include('../views/partials/user_panel.ejs') %>
       <%- include('../views/partials/messages.ejs') %>
     <% } %>
+    <% if(errors.length > 0) { %>
+      <ul class="errors-container">
+          <% errors.forEach(error => { %> 
+              <li class="error-message"><%= error.msg%></li>
+          <% }) %>
+      </ul>
+  <% } %>
   </body>
 </html>
