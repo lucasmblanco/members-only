@@ -23,15 +23,6 @@ const getForms = (req, res) => {
   });
 };
 
-/*
-const logInForm = (req, res) => {
-  res.render('log-in-form', {
-    title: 'Log in form',
-    errors: false,
-  });
-};
-*/
-
 const createUser = async (req, res, next) => {
   const errors = validationResult(req);
 
